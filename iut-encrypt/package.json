@@ -1,13 +1,10 @@
 {
-  "name": "@002nero/iut-encryptv",
+  "name": "iut-encrypt",
   "version": "1.0.0",
-  "description": "test encryption package for iut purposes",
+  "description": "Module d'encryptage pour le TP NodeJS",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "author": "",
   "license": "ISC"
