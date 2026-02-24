@@ -16,10 +16,15 @@
   },
   "dependencies": {
     "@hapi/boom": "9.x.x",
+    "@hapi/jwt": "^3.2.3",
     "@hapipal/haute-couture": "4.x.x",
+    "@hapipal/schmervice": "^3.0.0",
     "@hapipal/schwifty": "6.x.x",
+    "iut-encrypt": "file:../iut-encrypt",
     "joi": "^17.13.3",
+    "mysql": "^2.18.1",
     "mysql2": "^2.3.3",
+    "nodemailer": "^8.0.1",
     "objection": "2.x.x"
   },
   "peerDependencies": {

@@ -2,8 +2,6 @@
 
 const Dotenv = require('dotenv');
 const Confidence = require('@hapipal/confidence');
-const Toys = require('@hapipal/toys');
-const Schwifty = require('@hapipal/schwifty');
 
 Dotenv.config({ path: `${__dirname}/.env` });
 
@@ -18,8 +16,8 @@ module.exports = new Confidence.Store({
         debug: {
             $filter: 'NODE_ENV',
             $default: {
-                log: ['error', 'start'],
-                request: ['error']
+                log: ['error', 'warn'],
+                request: ['error', 'warn']
             },
             production: {
                 request: ['implementation']
@@ -29,43 +27,34 @@ module.exports = new Confidence.Store({
     register: {
         plugins: [
             {
-                plugin: '../lib', // Main plugin
+                plugin: '../lib',
                 options: {}
             },
             {
-                plugin: './plugins/swagger' // Ajouté par le flavor swagger
+                plugin: './plugins/swagger'
             },
             {
-                plugin: {
+                plugin: '@hapipal/schwifty',
+                options: {
                     $filter: 'NODE_ENV',
-                    $default: '@hapipal/hpal-debug',
-                    production: Toys.noop
-                }
-            },
-            {
-                plugin  : '@hapipal/schwifty',
-                options : {
-                    $filter    : 'NODE_ENV',
-                    $default   : {},
-                    $base      : {
-                        migrateOnStart : true,
-                        knex           : {
-                            client     : 'mysql',
-                            connection : {
-                                host     : process.env.DB_HOST || '0.0.0.0',
-                                user     : process.env.DB_USER || 'root',
-                                password : process.env.DB_PASSWORD || 'hapi',
-                                database : process.env.DB_DATABASE || 'user',
-                                port     : process.env.DB_PORT || 3307
+                    $default: {
+                        migrateOnStart: true,
+                        knex: {
+                            client: 'mysql',
+                            connection: {
+                                host: { $env: 'DB_HOST', $default: 'localhost' },
+                                user: { $env: 'DB_USER', $default: 'root' },
+                                password: { $env: 'DB_PASSWORD', $default: 'hapi' },
+                                database: { $env: 'DB_NAME', $default: 'user' },
+                                port: { $env: 'DB_PORT', $coerce: 'number', $default: 3307 }
                             }
                         }
-                    },
-                    production : {
-                        migrateOnStart : false
                     }
                 }
+            },
+            {
+                plugin: '@hapipal/schmervice'
             }
         ]
     }
-
 });

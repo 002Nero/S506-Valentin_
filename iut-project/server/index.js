@@ -3,6 +3,10 @@
 const Glue = require('@hapi/glue');
 const Exiting = require('exiting');
 const Manifest = require('./manifest');
+const Dotenv = require('dotenv');
+const Path = require('path');
+
+Dotenv.config({ path: Path.join(__dirname, '../.env') });
 
 exports.deployment = async ({ start } = {}) => {
 

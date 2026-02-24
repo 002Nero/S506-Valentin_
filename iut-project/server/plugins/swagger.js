@@ -16,8 +16,17 @@ module.exports = {
                 plugin: HapiSwagger,
                 options: {
                     info: {
+                        title: 'IUT Project API',
                         version: Package.version
-                    }
+                    },
+                    securityDefinitions: {
+                        jwt: {
+                            type: 'apiKey',
+                            name: 'Authorization',
+                            in: 'header'
+                        }
+                    },
+                    security: [{ jwt: [] }]
                 }
             }
         ]);
